@@ -1,20 +1,46 @@
-const lime = "#CBFC01";
+import Image from "next/image";
+
+const U = (px: number) => `${px / 14.4}cqw`;
+
 const white = "#FFFFFF";
+
+const frames = [
+  // left column
+  { src: "/hero/Frame-left-1.png", width: 267, height: 387, left: 0, top: 222 },
+  { src: "/hero/Frame-left-2.png", width: 177, height: 176, left: 184, top: 478 },
+  { src: "/hero/Frame-left-3.png", width: 344, height: 343, left: 15, top: 682 },
+  // right column
+  { src: "/hero/Frame right-1.png", width: 213, height: 372, left: 1228, top: 221 },
+  { src: "/hero/frame-right-2.png", width: 190, height: 189, left: 1105, top: 464 },
+  { src: "/hero/Frame-right -3.png", width: 317, height: 332, left: 1125, top: 673 },
+];
+
+export function HeroFrames() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
+      {frames.map((frame) => (
+        <Image
+          key={frame.src}
+          src={frame.src}
+          alt=""
+          width={frame.width}
+          height={frame.height}
+          className="absolute h-auto w-auto"
+          style={{ left: U(frame.left), top: U(frame.top), width: U(frame.width) }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function Squiggle({
   className,
-  color = lime,
+  color = "#CBFC01",
   strokeWidth = 52,
   ...props
 }: React.SVGProps<SVGSVGElement> & { color?: string; strokeWidth?: number }) {
   return (
-    <svg
-      viewBox="0 0 300 300"
-      fill="none"
-      aria-hidden
-      className={className}
-      {...props}
-    >
+    <svg viewBox="0 0 300 300" fill="none" aria-hidden className={className} {...props}>
       <path
         d="M10 40h150M10 40 90 105M90 105 10 170M10 170h150"
         stroke={color}
@@ -26,117 +52,17 @@ export function Squiggle({
   );
 }
 
-const U = (px: number) => `${px / 14.4}cqw`;
-
-type DecoProps = { variant?: "stage" | "flow" };
-
-export function Decorations({ variant = "flow" }: DecoProps) {
-  const stage = variant === "stage";
-
+export function Decorations() {
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 z-[5] overflow-hidden"
-    >
-      {stage ? (
-        <>
-          <Squiggle
-            className="absolute"
-            style={{ left: U(-60), top: U(280), width: U(300), height: U(300) }}
-          />
-
-          <svg
-            className="absolute"
-            style={{ left: U(210), top: U(495), width: U(120), height: U(130) }}
-            viewBox="0 0 120 130"
-            fill="none"
-          >
-            <path
-              d="M10 20h100M10 20 100 65M100 65 10 110"
-              stroke={white}
-              strokeWidth={26}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-
-          <svg
-            className="absolute"
-            style={{
-              left: U(48),
-              top: U(738),
-              width: U(262),
-              height: U(222),
-              transform: "rotate(-24deg)",
-            }}
-            viewBox="0 0 250 210"
-            fill="none"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M125 0c69 0 125 45 125 100s-56 100-125 100S0 155 0 100 56 0 125 0Zm0 52c-38 0-69 21-69 48s31 48 69 48 69-21 69-48-31-48-69-48Z"
-              fill={white}
-            />
-          </svg>
-
-          <div
-            className="absolute bg-lime"
-            style={{
-              left: U(1276),
-              top: U(252),
-              width: U(250),
-              height: U(250),
-              borderRadius: "38% 12% 38% 38%",
-              transform: "rotate(16deg)",
-            }}
-          />
-
-          <div
-            className="absolute bg-white"
-            style={{
-              left: U(1128),
-              top: U(488),
-              width: U(120),
-              height: U(135),
-              clipPath: "polygon(50% 0%, 100% 100%, 0% 88%)",
-              borderRadius: "14px",
-            }}
-          />
-
-          <svg
-            className="absolute"
-            style={{
-              left: U(1180),
-              top: U(690),
-              width: U(250),
-              height: U(330),
-            }}
-            viewBox="0 0 250 330"
-            fill="none"
-          >
-            <path
-              d="M40 20h170M40 20 210 110M210 110 40 200M40 200h170"
-              stroke={white}
-              strokeWidth={46}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </>
-      ) : (
-        <>
-          <div className="absolute -top-14 -right-16 h-44 w-44 rotate-12 rounded-[45%] bg-lime" />
-          <Squiggle className="absolute -left-14 top-[330px] h-32 w-32" />
-          <div
-            className="absolute top-[352px] right-0 h-20 w-16 bg-white"
-            style={{
-              clipPath: "polygon(50% 0%, 100% 100%, 0% 88%)",
-              borderRadius: "8px",
-            }}
-          />
-        </>
-      )}
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
+      <div className="absolute -top-14 -right-16 h-44 w-44 rotate-12 rounded-[45%] bg-lime" />
+      <Squiggle className="absolute -left-14 top-[330px] h-32 w-32" />
+      <div
+        className="absolute top-[352px] right-0 h-20 w-16 bg-white"
+        style={{ clipPath: "polygon(50% 0%, 100% 100%, 0% 88%)", borderRadius: "8px" }}
+      />
     </div>
   );
 }
+
+export { white };

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { BrandSurface } from "./brand-surface";
-import { Decorations } from "./decorations";
+import { Decorations, HeroFrames } from "./decorations";
 import { CourseCard, ProgressCard, StudentsCard } from "./hero-cards";
 import { SearchBar } from "./search-bar";
 import { SiteHeader } from "./site-header";
@@ -14,7 +14,7 @@ function HeroStage() {
       style={{ containerType: "inline-size" }}
     >
       <div className="relative" style={{ height: U(1024) }}>
-        <Decorations variant="stage" />
+        <HeroFrames />
         <SiteHeader variant="stage" />
 
         <div className="absolute inset-x-0 text-center" style={{ top: U(158) }}>
@@ -44,13 +44,13 @@ function HeroStage() {
         />
 
         <Image
-          src="/hero/student.png"
+          src="/hero/happy-boy.png"
           alt="Student learning with ByteSpace courses"
-          width={437}
-          height={484}
+          width={722}
+          height={515}
           priority
           className="absolute z-10 h-auto w-auto"
-          style={{ left: U(575), top: U(540), width: U(437) }}
+          style={{ left: U(414), top: U(509), width: U(722) }}
         />
 
         <div className="absolute z-20" style={{ left: U(403), top: U(640) }}>
@@ -70,7 +70,7 @@ function HeroStage() {
 function HeroMobile() {
   return (
     <div className="relative md:hidden">
-      <Decorations variant="flow" />
+      <Decorations />
       <SiteHeader />
       <div className="relative z-10 px-5 pt-10 text-center sm:px-8">
         <h1 className="text-[1.85rem] leading-[1.15] font-bold tracking-[-0.025em] text-white sm:text-5xl">
@@ -87,23 +87,23 @@ function HeroMobile() {
         </div>
       </div>
 
-      <div className="relative mt-10 h-[430px] sm:h-[520px]">
+      <div className="relative mt-10 h-[420px] sm:h-[520px]">
         <div className="absolute left-1/2 top-8 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-lime sm:h-[520px] sm:w-[520px]" />
         <Image
-          src="/hero/student.png"
+          src="/hero/happy-boy.png"
           alt="Student learning with ByteSpace courses"
-          width={437}
-          height={484}
+          width={722}
+          height={515}
           priority
-          className="absolute bottom-0 left-1/2 z-10 h-auto w-[290px] -translate-x-1/2 sm:w-[360px]"
+          className="absolute bottom-0 left-1/2 z-10 h-auto w-[400px] max-w-none -translate-x-1/2 sm:w-[460px]"
         />
-        <div className="absolute top-16 left-4 z-20 sm:top-24 sm:left-10">
+        <div className="absolute top-28 left-4 z-20 sm:top-36 sm:left-10">
           <CourseCard fontSize="13px" />
         </div>
-        <div className="absolute top-40 right-4 z-20 sm:top-52 sm:right-10">
+        <div className="absolute top-[228px] right-4 z-20 sm:top-[290px] sm:right-10">
           <ProgressCard fontSize="12px" />
         </div>
-        <div className="absolute bottom-6 left-4 z-20 sm:bottom-10 sm:left-10">
+        <div className="absolute bottom-4 left-4 z-20 sm:bottom-10 sm:left-10">
           <StudentsCard fontSize="14px" />
         </div>
       </div>

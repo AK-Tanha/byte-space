@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { CartIcon, CloseIcon, MenuIcon } from "./icons";
+import Image from "next/image";
+import { CloseIcon, MenuIcon } from "./icons";
 import { Wordmark } from "./wordmark";
 
 const U = (px: number) => `${px / 14.4}cqw`;
@@ -27,7 +28,7 @@ export function SiteHeader({
         style={{ height: U(104), paddingLeft: U(118), paddingRight: U(104) }}
       >
         <Link href="/" className="shrink-0" aria-label="ByteSpace home">
-          <Wordmark fontSize={U(26)} />
+          <Wordmark height={U(37)} priority />
         </Link>
 
         <nav
@@ -66,7 +67,14 @@ export function SiteHeader({
             aria-label="Cart"
             className="text-white transition-opacity hover:opacity-80"
           >
-            <CartIcon style={{ width: U(24), height: U(24) }} />
+            <Image
+              src="/hero/Style=Outlined.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-auto w-auto"
+              style={{ width: U(24) }}
+            />
           </a>
         </div>
       </header>
@@ -76,7 +84,7 @@ export function SiteHeader({
   return (
     <header className="relative z-30 mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between px-5 sm:px-8">
       <Link href="/" aria-label="ByteSpace home">
-        <Wordmark fontSize="18px" />
+        <Wordmark height="24px" priority />
       </Link>
 
       <nav className="hidden items-center gap-8 md:flex">
@@ -103,7 +111,13 @@ export function SiteHeader({
           aria-label="Cart"
           className="text-white hover:opacity-80"
         >
-          <CartIcon className="h-6 w-6" />
+          <Image
+            src="/hero/Style=Outlined.png"
+            alt=""
+            width={24}
+            height={24}
+            className="h-6 w-6"
+          />
         </a>
       </div>
 

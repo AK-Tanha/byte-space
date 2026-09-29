@@ -84,18 +84,13 @@ export function StudentsCard({
         <span>4.5 (240)</span>
         <StarIcon className="h-[1.15em] w-[1.15em] text-lime" />
       </p>
-      <div className="mt-[0.9em] flex items-center">
-        <Image
-          src="/hero/avatars.png"
-          alt=""
-          width={136}
-          height={60}
-          className="h-[2.1em] w-auto"
-        />
-        <span className="-ml-[0.9em] grid h-[2.35em] w-[2.35em] place-items-center rounded-full bg-lime text-[0.78em] font-bold text-neutral-900">
-          2K+
-        </span>
-      </div>
+      <Image
+        src="/hero/Auto Layout Horizontal.png"
+        alt=""
+        width={232}
+        height={43}
+        className="mt-[0.9em] h-auto w-[11.1em]"
+      />
     </Card>
   );
 }

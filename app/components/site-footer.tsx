@@ -28,7 +28,7 @@ export function SiteFooter() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
           <div>
-            <Wordmark fontSize="26px" className="[&>span]:text-[#040819]" />
+            <Wordmark height="34px" variant="dark" />
             <p className="mt-6 max-w-[400px] text-[14px] leading-[1.6] text-neutral-600">
               Stay Up to date with our latest features and releases by joining
               our newsletter.

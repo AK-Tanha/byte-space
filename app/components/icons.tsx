@@ -18,25 +18,6 @@ export function SearchIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function CartIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.7}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      className={className}
-      {...props}
-    >
-      <path d="M5.5 8.5h13l-1.1 10.2a2 2 0 0 1-2 1.8H8.6a2 2 0 0 1-2-1.8Z" />
-      <path d="M9 8.5a3 3 0 0 1 6 0" />
-    </svg>
-  );
-}
-
 export function StarIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg

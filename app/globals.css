@@ -5,6 +5,12 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-brand: #003be2;
+  --color-brand-soft: #1f53e5;
+  --color-lime: #cbfc01;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

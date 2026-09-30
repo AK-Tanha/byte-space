@@ -1,107 +1,123 @@
+import Image from "next/image";
 import { BrandSurface } from "./brand-surface";
 import { Container } from "./section-heading";
-import { Squiggle } from "./decorations";
 
-const lime = "#CBFC01";
-const white = "#FFFFFF";
+/** CTA_Frame is 1440x488 with a 120px grid at 2px white, 12% opacity. */
+const ctaGridStyle: React.CSSProperties = {
+  containerType: "inline-size",
+  backgroundImage: `repeating-linear-gradient(to right, rgba(255,255,255,0.12) 0 2px, transparent 2px 120px), repeating-linear-gradient(to bottom, rgba(255,255,255,0.12) 0 2px, transparent 2px 120px)`,
+};
 
+/** Design canvas for this section is 1440px wide. */
+const U = (px: number) => `${px / 14.4}cqw`;
+
+/**
+ * Decorations measured against CTA_Frame.png. The section is 1440x488; four
+ * shapes sit on the left, three on the right. Positions are the element boxes,
+ * each offset so the painted area of the PNG lands on its reference position.
+ */
 function CtaDecorations() {
   return (
     <div
       aria-hidden
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
-      <Squiggle
-        className="absolute hidden sm:block"
-        style={{ left: -60, top: -10, width: 190, height: 180 }}
-        strokeWidth={40}
+      {/* Left */}
+      <Image
+        src="/creators_svg/unlock-deco-left-1.png"
+        alt=""
+        width={267}
+        height={225}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 0, top: 0, width: 270, height: 228 }}
       />
 
-      <svg
-        className="absolute hidden sm:block"
-        style={{ left: 200, top: 30, width: 100, height: 110 }}
-        viewBox="0 0 120 130"
-        fill="none"
-      >
-        <path
-          d="M10 20h100M10 20 100 65M100 65 10 110"
-          stroke={white}
-          strokeWidth={26}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-
-      <div
-        className="absolute"
-        style={{
-          left: 1105,
-          top: 55,
-          width: 135,
-          height: 135,
-          clipPath: "polygon(50% 0%, 100% 100%, 0% 88%)",
-          borderRadius: "16px",
-          transform: "rotate(12deg)",
-        }}
+      <Image
+        src="/creators_svg/unlock-deco-left-2.png"
+        alt=""
+        width={177}
+        height={176}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 178, top: 5, width: 182, height: 181 }}
       />
 
-      <div
-        className="absolute bg-white"
-        style={{
-          right: -80,
-          top: 120,
-          width: 210,
-          height: 230,
-          borderRadius: "40% 12% 40% 40%",
-          transform: "rotate(-8deg)",
-        }}
+      <Image
+        src="/creators_svg/unlock-deco-left-3.png"
+        alt=""
+        width={140}
+        height={189}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 0, top: 225, width: 142, height: 192 }}
       />
 
-      <div
-        className="absolute bg-white"
-        style={{
-          left: -50,
-          top: 320,
-          width: 120,
-          height: 130,
-          clipPath: "polygon(50% 0%, 100% 100%, 0% 88%)",
-          borderRadius: "14px",
-        }}
+      <Image
+        src="/creators_svg/unlock-deco-left-4.png"
+        alt=""
+        width={346}
+        height={190}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 18, top: 300, width: 342, height: 188 }}
       />
 
-      <div
-        className="absolute rounded-full bg-lime"
-        style={{ left: 20, bottom: -170, width: 260, height: 260 }}
+      {/* Right */}
+      <Image
+        src="/creators_svg/unlock-deco-right-1.png"
+        alt=""
+        width={190}
+        height={189}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 1077, top: 0, width: 195, height: 194 }}
       />
 
-      <svg
-        className="absolute hidden sm:block"
-        style={{ right: 70, bottom: -60, width: 160, height: 150 }}
-        viewBox="0 0 250 330"
-        fill="none"
-      >
-        <path
-          d="M40 20h170M40 20 210 110M210 110 40 200M40 200h170"
-          stroke={lime}
-          strokeWidth={46}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <Image
+        src="/creators_svg/unlock-deco-right-2.png"
+        alt=""
+        width={218}
+        height={372}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 1222, top: 5, width: 222, height: 379 }}
+      />
+
+      <Image
+        src="/creators_svg/unlock-deco-right-3.png"
+        alt=""
+        width={334}
+        height={199}
+        className="absolute hidden object-contain sm:block"
+        style={{ left: 1109, top: 290, width: 331, height: 197 }}
+      />
     </div>
   );
 }
 
 export function CreatorCta() {
   return (
-    <BrandSurface className="py-20 sm:py-24">
+    <BrandSurface className="py-20 sm:py-[84.5px]" style={ctaGridStyle}>
       <CtaDecorations />
       <Container className="relative z-10 text-center">
-        <h2 className="mx-auto max-w-[760px] text-[30px] leading-[1.2] font-bold tracking-[-0.02em] text-white sm:text-[40px]">
+        <h2
+          className="mx-auto font-semibold tracking-[-0.01em] text-[#f5f5f6]"
+          style={{
+            fontSize: U(44),
+            lineHeight: "120%",
+            maxWidth: U(710),
+            height: U(106),
+          }}
+        >
           Unlock Your Potential as a
           <br className="hidden sm:block" /> Creator with ByteSpace
         </h2>
-        <p className="mx-auto mt-8 max-w-[950px] text-[15px] leading-[1.75] text-white/90 sm:text-[17px]">
+        <p
+          className="mx-auto font-normal text-[#f5f5f6]"
+          style={{
+            fontFamily:
+              "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+            fontSize: U(18),
+            lineHeight: "160%",
+            maxWidth: U(964),
+            marginTop: U(40),
+          }}
+        >
           Experience the collaboration of numerous creators and an expanding
           selection of courses. Register now and become a part of a community
           comprising over 10,000 local and international creators. Utilize our
@@ -110,7 +126,17 @@ export function CreatorCta() {
         </p>
         <a
           href="/creators/join"
-          className="mt-10 inline-flex h-[52px] items-center rounded-full bg-lime px-8 text-[16px] font-medium text-neutral-900 transition-colors hover:bg-lime/85"
+          className="inline-flex items-center justify-center rounded-[24px] bg-[#d4fb20] whitespace-nowrap text-[#242528]"
+          style={{
+            fontFamily:
+              "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+            fontSize: U(18),
+            lineHeight: "120%",
+            fontWeight: 500,
+            width: U(172),
+            height: U(46),
+            marginTop: U(40),
+          }}
         >
           Join as Creator
         </a>

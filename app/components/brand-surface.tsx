@@ -6,15 +6,17 @@ export const brandGridStyle: React.CSSProperties = {
 
 export function BrandSurface({
   className,
+  style,
   children,
 }: {
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }) {
   return (
     <section
       className={`relative isolate overflow-hidden bg-brand text-white [font-family:var(--font-poppins)] ${className ?? ""}`}
-      style={brandGridStyle}
+      style={{ ...brandGridStyle, ...style }}
     >
       {children}
     </section>

@@ -74,13 +74,20 @@ export function ProgressCard({
 export function StudentsCard({
   fontSize,
   className,
+  tone = "light",
 }: {
   fontSize: string;
   className?: string;
+  /** `lime` swaps the white plate for the brand lime, so the star turns brand blue. */
+  tone?: "light" | "lime";
 }) {
+  const isLime = tone === "lime";
+
   return (
     <div
-      className={`flex flex-col rounded-2xl bg-white px-4 pb-4 ${className ?? ""}`}
+      className={`flex flex-col rounded-2xl px-4 pb-4 ${
+        isLime ? "bg-lime" : "bg-white"
+      } ${className ?? ""}`}
       style={{
         fontSize,
         width: "15.77em",
@@ -106,7 +113,7 @@ export function StudentsCard({
         </span>
         <StarIcon
           className="h-[1.05em] w-[1.05em]"
-          style={{ color: "#d4fb20" }}
+          style={{ color: isLime ? "#003be2" : "#d4fb20" }}
         />
       </div>
       <Image

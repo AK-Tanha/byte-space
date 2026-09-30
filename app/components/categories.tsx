@@ -25,7 +25,7 @@ const topics = [
 export const featuredCourses: Course[] = [
   {
     title: "Learn Figma from Basic",
-    image: "/courses/figma.jpg",
+    image: "/courses/skill-card-1.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",
@@ -38,7 +38,7 @@ export const featuredCourses: Course[] = [
   },
   {
     title: "Build Digital Asset",
-    image: "/courses/digital-asset.jpg",
+    image: "/courses/skill-card-2.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",
@@ -51,7 +51,7 @@ export const featuredCourses: Course[] = [
   },
   {
     title: "the Power of Big Data",
-    image: "/courses/big-data.jpg",
+    image: "/courses/skill-card-3.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",
@@ -64,7 +64,7 @@ export const featuredCourses: Course[] = [
   },
   {
     title: "Balancing Productivity and Focus",
-    image: "/courses/productivity.jpg",
+    image: "/courses/skill-card-4.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",
@@ -77,7 +77,7 @@ export const featuredCourses: Course[] = [
   },
   {
     title: "Mastering Money Management",
-    image: "/courses/money.jpg",
+    image: "/courses/skill-card-5.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",
@@ -90,7 +90,7 @@ export const featuredCourses: Course[] = [
   },
   {
     title: "From Idea to Startup Success",
-    image: "/courses/startup.jpg",
+    image: "/courses/skill-card-6.jpg",
     author: "purepearl studio",
     level: "Beginner",
     lessons: "17 Lessons",

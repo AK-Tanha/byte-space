@@ -5,36 +5,88 @@ const testimonials = [
   {
     name: "Sarah M.",
     role: "Enthusiastic Learner",
-    avatar: "/testimonials/user-1.png",
+    avatar: "/testimonials/user-3.png",
     quote:
       '"ByteSpace has transformed my approach to learning. The diverse range of courses and the quality of content provided by creators have exceeded my expectations. The platform truly fosters a sense of community and lifelong learning."',
   },
   {
     name: "James L.",
     role: "Lifelong Learner",
-    avatar: "/testimonials/user-2.png",
+    avatar: "/testimonials/user-1.png",
     quote:
       '"I\'ve tried several online learning platforms, and ByteSpace stands out for its vibrant community and the variety of courses available. The easy navigation and engaging content make it a go-to platform for continuous skill development."',
   },
   {
     name: "Alex B.",
     role: "Inspired Creator",
-    avatar: "/testimonials/user-3.png",
+    avatar: "/testimonials/user-2.png",
     quote:
       '"As a creator, ByteSpace has been a game-changer for me. The Course Editor is user-friendly, and the support from the community is incredible. It\'s fulfilling to see my courses making a positive impact on learners globally."',
   },
 ];
 
+/**
+ * Background glow layer. Same structure as the features section: three
+ * absolutely-positioned radial-gradient divs, sized in cqw off a 1440px frame.
+ * Note each gradient only paints to half its box, so these are positioned by
+ * their box, not by the visible core.
+ */
+const T = (px: number) => `${px / 14.4}cqw`;
+
+const glowEllipses = [
+  {
+    left: T(-442),
+    top: T(149),
+    size: T(1137),
+    stops: [0.24, 0.0552, 0.0144],
+    rgb: "0,59,226",
+  },
+  {
+    left: T(395),
+    top: T(-138),
+    size: T(672),
+    stops: [0.6, 0.138, 0.036],
+    rgb: "203,252,1",
+  },
+  {
+    left: T(842),
+    top: T(-241),
+    size: T(1137),
+    stops: [0.4, 0.092, 0.024],
+    rgb: "203,252,1",
+  },
+];
+
+function TestimonialsGlow() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      style={{ containerType: "inline-size" }}
+    >
+      {glowEllipses.map((e) => (
+        <div
+          key={`${e.left}-${e.top}`}
+          className="absolute"
+          style={{
+            left: e.left,
+            top: e.top,
+            width: e.size,
+            height: e.size,
+            filter: "blur(40px)",
+            backgroundImage: `radial-gradient(50% 50% at 50% 50%, rgba(${e.rgb},${e.stops[0]}) 0%, rgba(${e.rgb},${e.stops[1]}) 53%, rgba(${e.rgb},${e.stops[2]}) 75%, rgba(${e.rgb},0) 100%)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Testimonials() {
   return (
-    <section
-      className="bg-[#fafafa] py-16 sm:py-24"
-      style={{
-        backgroundImage:
-          "radial-gradient(60% 70% at 0% 90%, rgba(110,140,255,0.20), transparent 72%), radial-gradient(70% 55% at 100% 30%, rgba(203,252,1,0.20), transparent 74%), radial-gradient(50% 40% at 100% 100%, rgba(203,252,1,0.14), transparent 72%)",
-      }}
-    >
-      <Container>
+    <section className="relative overflow-hidden bg-[#fafafa] py-16 sm:py-24">
+      <TestimonialsGlow />
+      <Container className="relative z-10">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <h2 className="text-[32px] leading-[1.15] font-bold tracking-[-0.02em] text-[#040819] sm:text-[40px]">
             Discover What Our Community Is Saying

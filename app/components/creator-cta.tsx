@@ -8,8 +8,11 @@ const ctaGridStyle: React.CSSProperties = {
   backgroundImage: `repeating-linear-gradient(to right, rgba(255,255,255,0.12) 0 2px, transparent 2px 120px), repeating-linear-gradient(to bottom, rgba(255,255,255,0.12) 0 2px, transparent 2px 120px)`,
 };
 
-/** Design canvas for this section is 1440px wide. */
-const U = (px: number) => `${px / 14.4}cqw`;
+/**
+ * CTA_Frame is 1440x488; the section itself is the CSS container, so cqw values
+ * below are design-px ÷ 14.4. They are all on `lg:` classes — small screens use
+ * the fixed px values, since cqw shrinks with the viewport and becomes unreadable.
+ */
 
 /**
  * Decorations measured against CTA_Frame.png. The section is 1440x488; four
@@ -92,30 +95,20 @@ function CtaDecorations() {
 
 export function CreatorCta() {
   return (
-    <BrandSurface className="py-20 sm:py-[84.5px]" style={ctaGridStyle}>
+    <BrandSurface className="py-16 sm:py-[84.5px]" style={ctaGridStyle}>
       <CtaDecorations />
       <Container className="relative z-10 text-center">
         <h2
-          className="mx-auto font-semibold tracking-[-0.01em] text-[#f5f5f6]"
-          style={{
-            fontSize: U(44),
-            lineHeight: "120%",
-            maxWidth: U(710),
-            height: U(106),
-          }}
+          className="mx-auto text-[28px] leading-[1.18] font-semibold tracking-[-0.01em] text-[#f5f5f6] sm:text-[34px] lg:h-[7.3611cqw] lg:max-w-[49.3056cqw] lg:text-[3.0556cqw] lg:leading-[1.2]"
+          style={{ fontFamily: "var(--font-poppins)", fontWeight: 600 }}
         >
-          Unlock Your Potential as a
-          <br className="hidden sm:block" /> Creator with ByteSpace
+          Unlock Your Potential as a Creator with ByteSpace
         </h2>
         <p
-          className="mx-auto font-normal text-[#f5f5f6]"
+          className="mx-auto mt-6 text-[15px] leading-[1.65] font-normal text-[#f5f5f6] sm:text-[16px] lg:mt-[2.7778cqw] lg:max-w-[66.9444cqw] lg:text-[1.25cqw] lg:leading-[1.6]"
           style={{
             fontFamily:
               "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
-            fontSize: U(18),
-            lineHeight: "160%",
-            maxWidth: U(964),
-            marginTop: U(40),
           }}
         >
           Experience the collaboration of numerous creators and an expanding
@@ -126,16 +119,12 @@ export function CreatorCta() {
         </p>
         <a
           href="/creators/join"
-          className="inline-flex items-center justify-center rounded-[24px] bg-[#d4fb20] whitespace-nowrap text-[#242528]"
+          className="mt-6 inline-flex h-[46px] w-[172px] items-center justify-center rounded-[24px] bg-[#d4fb20] whitespace-nowrap text-[15px] text-[#242528] sm:text-[16px] lg:mt-[2.7778cqw] lg:text-[1.25cqw]"
           style={{
             fontFamily:
               "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
-            fontSize: U(18),
             lineHeight: "120%",
             fontWeight: 500,
-            width: U(172),
-            height: U(46),
-            marginTop: U(40),
           }}
         >
           Join as Creator

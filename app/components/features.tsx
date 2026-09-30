@@ -24,14 +24,18 @@ function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col items-start">
       <span
-        className="font-medium tracking-[-0.01em] text-brand"
-        style={{ fontSize: U(36), lineHeight: `${U(44)}` }}
+        className="text-[26px] leading-[1.15] font-medium tracking-[-0.01em] text-brand sm:text-[30px] lg:text-[2.8617cqw] lg:leading-[3.4976cqw]"
+        style={{ fontFamily: "var(--font-poppins)", fontWeight: 500 }}
       >
         {value}
       </span>
       <span
-        className="text-[#4b4c53]"
-        style={{ fontSize: U(18), lineHeight: `${U(29)}` }}
+        className="mt-1 text-[12px] leading-[1.4] text-[#4b4c53] sm:text-[13px] lg:mt-0 lg:text-[1.4310cqw] lg:leading-[2.3053cqw]"
+        style={{
+          fontFamily:
+            "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+          fontWeight: 400,
+        }}
       >
         {label}
       </span>
@@ -189,10 +193,10 @@ function CreatorVisual() {
         height={596}
         className="absolute z-10 object-cover"
         style={{
-          left: U(28),
-          top: 0,
-          width: U(435),
-          height: U(596),
+          left: U(38),
+          top: U(-1),
+          width: U(517),
+          height: U(708),
         }}
       />
       <RevenueCard
@@ -218,7 +222,7 @@ function CreatorVisual() {
         alt=""
         width={217}
         height={216}
-        className="absolute object-contain"
+        className="absolute z-20 object-contain"
         style={{
           left: U(303),
           top: U(114),
@@ -235,21 +239,22 @@ function CreatorVisual() {
 
 function LearnersFlow() {
   return (
-    <div className="mt-10 w-full lg:hidden">
-      <div className="mx-auto w-full max-w-[340px]">
+    <div className="mt-8 flex w-full flex-col items-center gap-5 lg:hidden">
+      <div className="w-full max-w-[320px]">
         <CourseCard course={featuredCourses[0]} />
       </div>
-      <div className="relative mt-4">
-        <Image
-          src="/hero/happy-boy.png"
-          alt=""
-          width={577}
-          height={540}
-          className="mx-auto w-[260px] object-cover"
-        />
-        <div className="relative z-20 mx-auto -mt-6 w-fit">
-          <ProgressCard fontSize="13px" />
-        </div>
+      {/* Source is 722×515 with transparent padding at x=81,y=36, so the
+          visible content is 619×479. The card sits below the photo rather than
+          overlapping it — at this width an overlay would cover his face. */}
+      <Image
+        src="/hero/happy-boy.png"
+        alt=""
+        width={722}
+        height={515}
+        className="h-auto w-[240px]"
+      />
+      <div className="-mt-16 w-fit">
+        <ProgressCard fontSize="11px" />
       </div>
     </div>
   );
@@ -257,80 +262,154 @@ function LearnersFlow() {
 
 function CreatorFlow() {
   return (
-    <div className="mt-12 w-full lg:hidden">
-      <div className="relative mx-auto w-full max-w-[360px]">
+    <div className="mt-6 flex w-full flex-col items-center gap-5 lg:hidden">
+      {/* Source is 579×719 with transparent padding at x=50,y=35, so visible
+          content is 497×684. Card overlaps the lower edge only, clear of her face. */}
+      <div className="relative w-[220px]">
         <Image
           src="/happy girl.png"
           alt="ByteSpace creator with course revenue and students"
-          width={435}
-          height={596}
-          className="h-auto w-full object-cover"
+          width={579}
+          height={719}
+          className="h-auto w-full"
         />
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <StudentsCard fontSize="14px" />
+        <div className="absolute inset-x-0 -bottom-10 mx-auto w-fit">
+          <StudentsCard fontSize="10px" />
         </div>
       </div>
-      <div className="mt-6 flex items-start justify-center gap-3">
+      <div className="mt-8 flex flex-wrap items-start justify-center gap-3">
         <RevenueCard
           title="Total Revenue"
           sub="July 1-28"
           value="$120.29"
-          fontSize="14px"
+          fontSize="12px"
           withBar
-          style={{ position: "relative", width: "14.5em", height: "7.4375em" }}
+          className="w-[164px]"
+          style={{ position: "relative" }}
         />
         <RevenueCard
           title="Year to Date"
           sub="2023"
           value="$1,200.38"
-          fontSize="14px"
+          fontSize="12px"
           stacked
-          style={{ position: "relative", width: "8.375em", height: "8.4375em" }}
+          className="w-[96px]"
+          style={{ position: "relative" }}
         />
       </div>
     </div>
   );
 }
 
+/**
+ * Background glow layer. Figma "Group 5" (2456x2391 at -508,-466) is a group, so
+ * its children's offsets are group-local; the group offset is folded into each
+ * ellipse below. Ellipse 12 is a sibling group, not part of Group 5.
+ * Design frame is 1440x1460.
+ */
+const G = (px: number) => `${px / 14.4}cqw`;
+
+const glowEllipses = [
+  // Top left lime glow (Ellipse 11). Frame-absolute offsets; the 1137px box
+  // centres at (416,102), which is the reference's top-lime peak.
+  {
+    left: G(-152),
+    top: G(-466),
+    size: G(1137),
+    stops: [0.4, 0.092, 0.024],
+    rgb: "203,252,1",
+    blur: "20px",
+  },
+  // Lower right brand glow (Ellipse 8). Frame-absolute; box centres at (1290, 856).
+  {
+    left: G(722),
+    top: G(788),
+    size: G(1137),
+    stops: [0.24, 0.0552, 0.0144],
+    rgb: "0,59,226",
+    blur: "40px",
+  },
+  // Group 5 → Ellipse 9 (brand)
+  {
+    left: G(-1016),
+    top: G(-283),
+    size: G(1137),
+    stops: [0.16, 0.0368, 0.0096],
+    rgb: "0,59,226",
+    blur: "20px",
+  },
+  // Top right brand glow (Ellipse 10). Frame-absolute; box centres at (1379,110).
+  {
+    left: G(811),
+    top: G(-458),
+    size: G(1137),
+    stops: [0.08, 0.0184, 0.0048],
+    rgb: "0,59,226",
+    blur: "40px",
+  },
+  // Ellipse 12 (lime) — bottom left
+  {
+    left: G(-287),
+    top: G(946),
+    size: G(672),
+    stops: [0.6, 0.138, 0.036],
+    rgb: "203,252,1",
+    blur: "20px",
+  },
+];
+
+function FeaturesGlow() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      style={{ containerType: "inline-size" }}
+    >
+      {glowEllipses.map((e) => (
+        <div
+          key={`${e.left}-${e.top}`}
+          className="absolute"
+          style={{
+            left: e.left,
+            top: e.top,
+            width: e.size,
+            height: e.size,
+            filter: `blur(${e.blur})`,
+            backgroundImage: `radial-gradient(50% 50% at 50% 50%, rgba(${e.rgb},${e.stops[0]}) 0%, rgba(${e.rgb},${e.stops[1]}) 53%, rgba(${e.rgb},${e.stops[2]}) 75%, rgba(${e.rgb},0) 100%)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Features() {
   return (
-    <section
-      className="bg-[#fafafa] font-sans"
-      style={{
-        backgroundImage:
-          "radial-gradient(45% 40% at 20% 15%, rgba(203,252,1,0.32), transparent 70%), radial-gradient(45% 35% at 5% 95%, rgba(203,252,1,0.32), transparent 70%), radial-gradient(40% 30% at 0% 55%, rgba(120,150,255,0.30), transparent 75%), radial-gradient(45% 45% at 100% 5%, rgba(120,150,255,0.26), transparent 75%), radial-gradient(45% 45% at 100% 95%, rgba(120,150,255,0.26), transparent 75%)",
-      }}
-    >
+    <section className="relative overflow-hidden bg-[#fafafa] font-sans">
+      <FeaturesGlow />
       <div
-        className="mx-auto w-full max-w-[1258px] px-5 py-16 sm:px-6 sm:py-20 lg:px-0 lg:py-[120px]"
+        className="relative z-10 w-full px-5 py-16 sm:px-6 sm:py-20 lg:w-[1258px] lg:max-w-none lg:px-0 lg:py-[120px] lg:[margin-left:121px] lg:[margin-right:auto]"
         style={{ containerType: "inline-size" }}
       >
         <div className="flex flex-col gap-10 lg:gap-[5.7cqw]">
           {/* Row 1 — growth pitch + learner visual */}
-          <div
-            className="flex flex-col lg:flex-row lg:items-center"
-            style={{ gap: U(63) }}
-          >
-            <div
-              className="flex flex-col"
-              style={{ gap: U(40), width: U(574), maxWidth: "100%" }}
-            >
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-[5.0079cqw]">
+            <div className="flex w-full flex-col gap-6 lg:w-[45.63cqw] lg:gap-[3.1796cqw]">
               <h2
-                className="font-semibold tracking-[-0.01em] text-[#242528]"
+                className="text-[26px] leading-[1.18] font-semibold tracking-[-0.01em] text-[#0b0b0d] sm:text-[34px] lg:max-w-[45.87cqw] lg:text-[3.4976cqw]"
                 style={{
-                  fontSize: U(44),
-                  lineHeight: "120%",
-                  maxWidth: U(577),
+                  fontFamily: "var(--font-poppins)",
+                  fontWeight: 600,
                 }}
               >
                 Your Path to Professional Growth Starts Here!
               </h2>
               <p
-                className="text-[#4b4c53]"
+                className="text-[15px] leading-[1.65] text-[#4b4c53] sm:text-[16px] lg:max-w-[37.92cqw] lg:text-[1.4310cqw] lg:leading-[1.6]"
                 style={{
-                  fontSize: U(18),
-                  lineHeight: "160%",
-                  maxWidth: U(477),
+                  fontFamily:
+                    "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+                  fontWeight: 400,
                 }}
               >
                 Explore our curated selection of courses tailored to enhance
@@ -339,7 +418,7 @@ export function Features() {
                 expertise, or embark on a new career path entirely, we have the
                 resources you need.
               </p>
-              <div className="flex flex-wrap items-end gap-8 lg:gap-[4.4cqw]">
+              <div className="grid grid-cols-3 gap-4 sm:flex sm:flex-wrap sm:items-end sm:gap-8 lg:flex lg:gap-[4.4cqw]">
                 {stats.map((stat) => (
                   <Stat key={stat.label} {...stat} />
                 ))}
@@ -356,54 +435,50 @@ export function Features() {
 
           {/* Row 2 — creator visual + manage pitch */}
           <div
-            className="flex flex-col lg:flex-row lg:items-center"
-            style={{ gap: U(79), width: U(1200), maxWidth: "100%" }}
+            className="flex flex-col lg:flex-row lg:items-center lg:w-[95.39cqw] lg:gap-[6.2798cqw]"
           >
-            <div
-              className="w-full lg:w-auto"
-              style={{ width: U(541), maxWidth: "100%", flex: "none" }}
-            >
+            <div className="mx-auto flex w-full flex-col items-center lg:mx-0 lg:w-[43cqw] lg:shrink-0 lg:items-stretch">
               <CreatorVisual />
               <CreatorFlow />
             </div>
-            <div
-              className="flex flex-col"
-              style={{ gap: U(40), width: U(580), maxWidth: "100%" }}
-            >
+            <div className="flex w-full flex-col gap-6 lg:w-[46.1cqw] lg:gap-[3.1796cqw]">
               <h2
-                className="font-semibold tracking-[-0.01em] text-[#242528]"
-                style={{
-                  fontSize: U(44),
-                  lineHeight: "120%",
-                  maxWidth: U(391),
-                }}
+                className="text-[26px] leading-[1.18] font-semibold tracking-[-0.01em] text-[#242528] sm:text-[34px] lg:max-w-[31.08cqw] lg:text-[3.4976cqw]"
+                style={{ fontFamily: "var(--font-poppins)", fontWeight: 600 }}
               >
                 Create &amp; Manage Courses Easily.
               </h2>
               <p
-                className="font-bold text-[#242528]"
+                className="text-[15px] leading-[1.6] text-[#242528] sm:text-[16px] lg:max-w-[45.63cqw] lg:text-[1.4310cqw] lg:leading-[2.2266cqw]"
                 style={{
-                  fontSize: U(18),
-                  lineHeight: `${U(28)}`,
-                  maxWidth: U(574),
+                  fontFamily:
+                    "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+                  fontWeight: 400,
+                  letterSpacing: "0em",
                 }}
               >
-                <strong className="font-bold">ByteSpace</strong> supports
+                <strong style={{ fontWeight: 700 }}>ByteSpace</strong> supports
                 individuals or entities in the creation, publication, and
                 administration of educational courses.
               </p>
-              <ul className="flex flex-col" style={{ gap: U(16) }}>
+              <ul className="flex flex-col gap-3 lg:gap-[1.272cqw]">
                 {checklist.map((item) => (
                   <li
                     key={item}
-                    className="flex items-end"
-                    style={{ gap: U(8) }}
+                    className="flex items-center gap-2.5 lg:gap-[0.636cqw]"
                   >
                     <CheckIcon
-                      className="shrink-0 text-brand"
-                      style={{ width: U(24), height: U(24) }}
+                      className="shrink-0 text-brand lg:h-[1.9075cqw] lg:w-[1.9075cqw]"
+                      style={{ width: 20, height: 20 }}
                     />
-                    <span className="text-[16px] leading-[1.2] font-medium text-[#242528] lg:text-[1.43cqw]">
+                    <span
+                      className="text-[15px] leading-[1.35] font-medium text-[#242528] sm:text-[16px] lg:text-[1.4310cqw]"
+                      style={{
+                        fontFamily:
+                          "Satoshi, var(--font-geist-sans), Arial, Helvetica, sans-serif",
+                        fontWeight: 500,
+                      }}
+                    >
                       {item}
                     </span>
                   </li>

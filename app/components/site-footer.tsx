@@ -33,21 +33,24 @@ export function SiteFooter() {
               Stay Up to date with our latest features and releases by joining
               our newsletter.
             </p>
-            <form action="/newsletter" className="mt-6 flex items-center gap-4">
-              <label className="flex h-[52px] flex-1 items-center">
+            <form
+              action="/newsletter"
+              className="mt-6 flex items-center gap-3 sm:gap-4"
+            >
+              <label className="flex h-[52px] min-w-0 flex-1 items-center">
                 <span className="sr-only">Email address</span>
                 <input
                   type="email"
                   name="email"
                   placeholder="Enter your email"
-                  className="h-full w-full rounded-full border border-neutral-200 px-6 text-[15px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:border-neutral-400"
+                  className="h-full w-full min-w-0 rounded-full border border-neutral-200 px-5 text-[15px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:border-neutral-400 sm:px-6"
                 />
               </label>
               <button
                 type="submit"
-                className="h-[52px] shrink-0 rounded-full bg-lime px-7 text-[15px] font-medium text-neutral-900 transition-colors hover:bg-lime/85"
+                className="h-[52px] shrink-0 rounded-full bg-lime px-5 text-[15px] font-medium whitespace-nowrap text-neutral-900 transition-colors hover:bg-lime/85 sm:px-7"
               >
-                Search
+                Subscribe
               </button>
             </form>
             <p className="mt-5 max-w-[420px] text-[13px] leading-[1.6] text-neutral-500">
@@ -76,7 +79,7 @@ export function SiteFooter() {
           <p className="text-[14px] text-neutral-600">
             &copy; 2023 ByteSpace. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-8">
+          <ul className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-8">
             {legal.map((item) => (
               <li key={item}>
                 <Link

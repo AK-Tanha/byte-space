@@ -10,57 +10,51 @@ export type Course = {
   duration: string;
   comments: string;
   rating: string;
-  students: string;
   price: string;
   lifetime?: boolean;
 };
 
 function OverlayPill({
-  icon,
+
   children,
-  withIcon = true,
+  size = "md",
 }: {
-  icon: React.ReactNode;
   children: React.ReactNode;
-  withIcon?: boolean;
+  size?: "sm" | "md";
 }) {
+  const sizeClass =
+    size === "sm"
+      ? "gap-0.5 px-[7.5px] py-[3.25px] text-[11px] leading-4"
+      : "gap-1.5 px-3 py-1.5 text-[12px] leading-5";
+
   return (
-    <span className="inline-flex items-center justify-center rounded-full bg-[rgba(246,246,246,0.6)] px-3 py-1.5 text-[12px] leading-5 font-medium whitespace-nowrap text-[#4f4f4f] backdrop-blur-[4px]">
-      {withIcon ? icon : null}
+    <span
+      className={`inline-flex items-center justify-center rounded-full bg-[rgba(246,246,246,0.6)] font-medium whitespace-nowrap text-[#4f4f4f] backdrop-blur-[4px] ${sizeClass}`}
+    >
+      {/* {withIcon ? icon : null} */}
       {children}
     </span>
   );
 }
 
-/** Figma: four 32px avatars overlapping 16px + a black `26+` badge. */
-function AvatarStack({
-  count,
-  badgeClassName,
-}: {
-  count: string;
-  badgeClassName?: string;
-}) {
+/** Figma: four 32px avatars overlapping 16px. */
+function AvatarStack() {
   return (
     <span className="flex items-center" style={{ gap: 8 }}>
       <Image
-        src="/courses/avatars-4.png"
+        src="/courses/Auto Layout Horizontal.png"
         alt=""
         width={104}
         height={32}
         className="h-8 w-auto"
       />
-      <span
-        className={`grid h-8 w-8 place-items-center rounded-full text-[12px] leading-5 font-medium ${badgeClassName ?? "bg-lime text-neutral-900"}`}
-      >
-        {count}
-      </span>
     </span>
   );
 }
 
 function GridCourseCard({ course }: { course: Course }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-[#ced0d3] bg-white p-5 transition-shadow hover:shadow-[0_18px_40px_-24px_rgba(2,12,48,0.45)]">
+    <article className="group flex flex-col rounded-2xl border border-[#ced0d3] bg-white p-3 transition-shadow hover:shadow-[0_18px_40px_-24px_rgba(2,12,48,0.45)] sm:p-5">
       <div className="relative overflow-hidden rounded-[10px]">
         <Image
           src={course.image}
@@ -69,45 +63,46 @@ function GridCourseCard({ course }: { course: Course }) {
           height={196}
           className="h-auto w-full object-cover"
         />
-        <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-1.5 p-2.5">
-          <OverlayPill icon={<BarIcon className="h-3 w-3" />}>
-            {course.lessons}
-          </OverlayPill>
-          <OverlayPill icon={<ClockIcon className="h-3 w-3" />}>
-            {course.duration}
-          </OverlayPill>
-          <OverlayPill icon={<CommentIcon className="h-3 w-3" />}>
-            {course.comments}
-          </OverlayPill>
+        {/* Only the lessons pill fits a two-up mobile column; the rest show from sm up. */}
+        <div className="absolute inset-x-0 bottom-[11px] flex flex-wrap items-center justify-center gap-1.5 p-2.5">
+          <OverlayPill size="sm">{course.lessons}</OverlayPill>
+          <span className="hidden sm:contents">
+            <OverlayPill size="sm">{course.duration}</OverlayPill>
+            <OverlayPill size="sm">{course.comments}</OverlayPill>
+          </span>
         </div>
       </div>
 
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <h3 className="line-clamp-1 text-[19px] font-bold text-neutral-900">
+      <div className="mt-3 flex items-start justify-between gap-2 sm:mt-4 sm:gap-3">
+        <h3 className="line-clamp-2 text-[14px] leading-tight font-bold text-neutral-900 sm:line-clamp-1 sm:text-[19px]">
           {course.title}
         </h3>
-        <span className="flex shrink-0 items-center gap-1 pt-1">
-          <span className="text-[15px] text-neutral-400">{course.rating}</span>
-          <StarIcon className="h-4 w-4 text-lime" />
+        <span className="flex shrink-0 items-center gap-1 pt-0.5">
+          <span className="text-[12px] text-neutral-400 sm:text-[15px]">
+            {course.rating}
+          </span>
+          <StarIcon className="h-3.5 w-3.5 text-lime sm:h-4 sm:w-4" />
         </span>
       </div>
 
-      <p className="mt-1 text-[13px] text-neutral-400">
+      <p className="mt-1 text-[11px] text-neutral-400 sm:text-[13px]">
         by <span className="text-brand">{course.author}</span>
       </p>
 
-      <div className="mt-4 flex items-center gap-3">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f6] px-3 py-1.5 text-[12px] text-neutral-600">
-          <BarIcon className="h-3 w-3" />
+      <div className="mt-3 flex items-center gap-2 sm:mt-4 sm:gap-3">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f6] px-2.5 py-1 text-[11px] text-neutral-600 sm:px-3 sm:py-1.5 sm:text-[12px]">
+          <BarIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
           {course.level}
         </span>
-        <AvatarStack count={course.students} />
+        <span className="hidden sm:contents">
+          <AvatarStack />
+        </span>
       </div>
 
-      <p className="mt-4 text-[20px] font-bold text-brand">
+      <p className="mt-3 text-[17px] font-bold text-brand sm:mt-4 sm:text-[20px]">
         {course.price}
         {course.lifetime ? (
-          <span className="text-[12px] font-normal text-neutral-400">
+          <span className="text-[10px] font-normal text-neutral-400 sm:text-[12px]">
             /lifetime
           </span>
         ) : null}
@@ -140,13 +135,13 @@ function CompactCourseCard({ course }: { course: Course }) {
         className="absolute flex items-center"
         style={{ left: 12, top: 150, gap: 12, height: 32 }}
       >
-        <OverlayPill withIcon={false} icon={null}>
+        <OverlayPill >
           {course.lessons}
         </OverlayPill>
-        <OverlayPill withIcon={false} icon={null}>
+        <OverlayPill >
           {course.duration}
         </OverlayPill>
-        <OverlayPill withIcon={false} icon={null}>
+        <OverlayPill >
           {course.comments}
         </OverlayPill>
       </div>
@@ -176,10 +171,7 @@ function CompactCourseCard({ course }: { course: Course }) {
               <BarIcon className="h-5 w-5" />
               {course.level}
             </span>
-            <AvatarStack
-              count={course.students}
-              badgeClassName="bg-black text-white"
-            />
+            <AvatarStack />
           </div>
 
           <div className="flex items-end" style={{ gap: 8 }}>

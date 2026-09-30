@@ -87,24 +87,24 @@ function HeroMobile() {
         </div>
       </div>
 
-      <div className="relative mt-10 h-[420px] sm:h-[520px]">
-        <div className="absolute left-1/2 top-8 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-lime sm:h-[520px] sm:w-[520px]" />
+      <div className="relative mx-auto mt-10 aspect-[722/620] w-full max-w-[340px] sm:max-w-none sm:aspect-auto sm:h-[520px]">
+        <div className="absolute left-1/2 top-[6%] aspect-square w-[78%] -translate-x-1/2 rounded-full bg-lime sm:top-8 sm:h-[520px] sm:w-[520px]" />
         <Image
           src="/hero/happy-boy.png"
           alt="Student learning with ByteSpace courses"
           width={722}
           height={515}
           priority
-          className="absolute bottom-0 left-1/2 z-10 h-auto w-[400px] max-w-none -translate-x-1/2 sm:w-[460px]"
+          className="absolute inset-x-0 bottom-0 z-10 mx-auto h-auto w-full max-w-none object-contain"
         />
-        <div className="absolute top-28 left-4 z-20 sm:top-36 sm:left-10">
-          <CourseCard fontSize="13px" />
+        <div className="absolute top-[16%] left-2 z-20 sm:top-36 sm:left-10">
+          <CourseCard fontSize="11px" />
         </div>
-        <div className="absolute top-[228px] right-4 z-20 sm:top-[290px] sm:right-10">
-          <ProgressCard fontSize="12px" />
+        <div className="absolute top-[42%] right-2 z-20 sm:top-[290px] sm:right-10">
+          <ProgressCard fontSize="10px" />
         </div>
-        <div className="absolute bottom-4 left-4 z-20 sm:bottom-10 sm:left-10">
-          <StudentsCard fontSize="14px" />
+        <div className="absolute bottom-2 left-2 z-20 sm:bottom-10 sm:left-10">
+          <StudentsCard fontSize="11px" />
         </div>
       </div>
     </div>

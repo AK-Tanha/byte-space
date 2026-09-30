@@ -54,7 +54,7 @@ export function ProgressCard({
 }) {
   return (
     <div
-      className={`flex flex-col rounded-[1.143em] bg-white px-[1.143em] pb-[1.143em] backdrop-blur-[10px] ${className ?? ""}`}
+      className={`flex flex-col rounded-[1.143em] bg-white px-[1.143em] pt-[1.143em] pb-[1.143em] backdrop-blur-[10px] ${className ?? ""}`}
       style={{ fontSize, width: "16.571em", gap: "0.571em" }}
     >
       <p className="leading-[1.714em] font-medium text-[#242528]">
@@ -83,7 +83,7 @@ export function StudentsCard({
       className={`flex flex-col rounded-2xl bg-white px-4 pb-4 ${className ?? ""}`}
       style={{
         fontSize,
-        width: "15.31em",
+        width: "15.77em",
         paddingTop: "0.952em",
         gap: "0.237em",
       }}
@@ -96,7 +96,7 @@ export function StudentsCard({
       </p>
       <div
         className="flex items-center"
-        style={{ gap: "0.375em", height: "0.949em" }}
+        style={{ gap: "0.28em", height: "0.949em" }}
       >
         <span
           className="font-bold text-[#242528]"
@@ -105,7 +105,7 @@ export function StudentsCard({
           4.5 (240)
         </span>
         <StarIcon
-          className="h-[0.949em] w-[0.949em]"
+          className="h-[1.05em] w-[1.05em]"
           style={{ color: "#d4fb20" }}
         />
       </div>
@@ -114,7 +114,7 @@ export function StudentsCard({
         alt=""
         width={232}
         height={43}
-        className="h-auto w-[13.74em]"
+        className="h-auto w-[13.93em]"
       />
     </div>
   );

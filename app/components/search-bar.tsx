@@ -46,17 +46,17 @@ export function SearchBar({
     <form action="/courses" className="flex w-full items-center gap-3 sm:gap-4">
       <label className="relative flex h-14 w-full items-center">
         <span className="sr-only">Search courses</span>
-        <SearchIcon className="absolute left-5 h-5 w-5 text-neutral-400" />
+        <SearchIcon className="absolute left-4 h-5 w-5 text-neutral-400 sm:left-5" />
         <input
           type="search"
           name="q"
           placeholder="Course, topic, creator"
-          className="h-full w-full rounded-full bg-white pl-12 text-neutral-800 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-lime"
+          className="h-full w-full min-w-0 rounded-full bg-white pl-11 text-[14px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-lime sm:pl-12 sm:text-[15px]"
         />
       </label>
       <button
         type="submit"
-        className="h-14 shrink-0 rounded-full bg-lime px-7 font-medium text-neutral-900 transition-colors hover:bg-lime/85"
+        className="h-14 shrink-0 rounded-full bg-lime px-5 font-medium text-neutral-900 transition-colors hover:bg-lime/85 sm:px-7"
       >
         Search
       </button>

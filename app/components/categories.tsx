@@ -32,7 +32,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -45,7 +44,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -58,7 +56,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -71,7 +68,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -84,7 +80,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -97,7 +92,6 @@ export const featuredCourses: Course[] = [
     duration: "2 hours 16 mins",
     comments: "59 Comments",
     rating: "4.5",
-    students: "26+",
     price: "$25",
     lifetime: true,
   },
@@ -117,12 +111,14 @@ export function Categories() {
           subtitle="At Bytespace Courses, we bring you closer to life-changing knowledge. Explore a variety of courses across different fields, from technology to the arts, and make a difference in your career and life."
         />
 
-        <ul className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        {/* Mobile: horizontal snap strip. The 18 topics wrap into ragged rows
+            when allowed to flow, so they scroll instead. */}
+        <ul className="-mx-5 mt-8 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
           {topics.map((topic) => (
-            <li key={topic}>
+            <li key={topic} className="shrink-0 snap-start">
               <button
                 type="button"
-                className={`rounded-full px-5 py-2.5 text-[15px] transition-colors ${
+                className={`rounded-full px-5 py-2.5 text-[15px] whitespace-nowrap transition-colors ${
                   topic === "Featured"
                     ? "bg-lime font-medium text-neutral-900"
                     : "bg-[#f5f5f6] text-neutral-700 hover:bg-neutral-200"
@@ -132,17 +128,17 @@ export function Categories() {
               </button>
             </li>
           ))}
-          <li>
+          <li className="shrink-0 snap-start">
             <button
               type="button"
-              className="px-2 py-2.5 text-[15px] font-medium text-brand"
+              className="px-2 py-2.5 text-[15px] font-medium whitespace-nowrap text-brand"
             >
               + More
             </button>
           </li>
         </ul>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {featuredCourses.map((course) => (
             <CourseCard key={course.title} course={course} />
           ))}

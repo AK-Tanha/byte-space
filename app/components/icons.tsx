@@ -82,42 +82,6 @@ export function BarIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function ClockIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinecap="round"
-      aria-hidden
-      className={className}
-      {...props}
-    >
-      <circle cx={8} cy={8} r={6.2} />
-      <path d="M8 4.4V8l2.4 1.6" />
-    </svg>
-  );
-}
-
-export function CommentIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      className={className}
-      {...props}
-    >
-      <path d="M14 9.4A2.4 2.4 0 0 1 11.6 12H6.2L3 14v-2.6A2.4 2.4 0 0 1 2 9.4V4.6A2.4 2.4 0 0 1 4.4 2h7.2A2.4 2.4 0 0 1 14 4.4Z" />
-    </svg>
-  );
-}
-
 export function CheckIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg

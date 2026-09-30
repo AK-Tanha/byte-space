@@ -2,8 +2,6 @@ import Image from "next/image";
 
 const U = (px: number) => `${px / 14.4}cqw`;
 
-const white = "#FFFFFF";
-
 const frames = [
   // left column
   { src: "/hero/Frame-left-1.png", width: 267, height: 387, left: 0, top: 222 },
@@ -70,7 +68,7 @@ export function HeroFrames() {
   );
 }
 
-export function Squiggle({
+function Squiggle({
   className,
   color = "#CBFC01",
   strokeWidth = 52,
@@ -119,5 +117,3 @@ export function Decorations() {
     </div>
   );
 }
-
-export { white };

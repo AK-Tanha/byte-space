@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BarIcon, ClockIcon, CommentIcon, StarIcon } from "./icons";
+import { BarIcon, StarIcon } from "./icons";
 
 export type Course = {
   title: string;

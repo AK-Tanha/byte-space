@@ -43,20 +43,20 @@ export function SearchBar({
   }
 
   return (
-    <form action="/courses" className="flex w-full items-center gap-3 sm:gap-4">
-      <label className="relative flex h-14 w-full items-center">
+    <form action="/courses" className="flex w-full items-center gap-2.5 sm:gap-3.5">
+      <label className="relative flex h-12 w-full items-center">
         <span className="sr-only">Search courses</span>
-        <SearchIcon className="absolute left-4 h-5 w-5 text-neutral-400 sm:left-5" />
+        <SearchIcon className="absolute left-3.5 h-[18px] w-[18px] text-neutral-400 sm:left-4 sm:h-5 sm:w-5" />
         <input
           type="search"
           name="q"
           placeholder="Course, topic, creator"
-          className="h-full w-full min-w-0 rounded-full bg-white pl-11 text-[14px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-lime sm:pl-12 sm:text-[15px]"
+          className="h-full w-full min-w-0 rounded-full bg-white pl-10 text-[13px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-lime sm:pl-11 sm:text-sm"
         />
       </label>
       <button
         type="submit"
-        className="h-14 shrink-0 rounded-full bg-lime px-5 font-medium text-neutral-900 transition-colors hover:bg-lime/85 sm:px-7"
+        className="h-12 shrink-0 rounded-full bg-lime px-4 text-[13px] font-medium text-neutral-900 transition-colors hover:bg-lime/85 sm:px-5 sm:text-sm"
       >
         Search
       </button>

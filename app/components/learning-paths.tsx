@@ -30,7 +30,7 @@ export function LearningPaths() {
                 alt=""
                 width={60}
                 height={60}
-                className="h-[60px] w-[60px]"
+                className="h-9 w-9 sm:h-[60px] sm:w-[60px]"
               />
               <span className="text-[17px] font-medium text-neutral-800">
                 {path.label}

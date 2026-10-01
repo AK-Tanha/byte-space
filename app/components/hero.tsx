@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { BrandSurface } from "./brand-surface";
-import { Decorations, HeroFrames } from "./decorations";
+import { HeroFrames } from "./decorations";
 import { CourseCard, ProgressCard, StudentsCard } from "./hero-cards";
 import { SearchBar } from "./search-bar";
 import { SiteHeader } from "./site-header";
 
 const U = (px: number) => `${px / 14.4}cqw`;
+
+/** Mobile collage canvas: 440px, matching the stage's `max-w`. */
+const SU = (px: number) => `${(px / 440) * 100}cqw`;
 
 function HeroStage() {
   return (
@@ -69,11 +72,10 @@ function HeroStage() {
 
 function HeroMobile() {
   return (
-    <div className="relative md:hidden">
-      <Decorations />
+    <div className="relative pb-8 md:hidden">
       <SiteHeader />
-      <div className="relative z-10 px-5 pt-10 text-center sm:px-8">
-        <h1 className="text-[1.85rem] leading-[1.15] font-bold tracking-[-0.025em] text-white sm:text-5xl">
+      <div className="relative z-10 px-4 pt-8 text-center sm:px-8 sm:pt-10">
+        <h1 className="text-[clamp(1.55rem,7.7vw,1.85rem)] leading-[1.15] font-bold tracking-[-0.025em] text-white sm:text-5xl">
           Get Access to Hundreds
           <br />
           Courses Available
@@ -82,29 +84,36 @@ function HeroMobile() {
           Unlock your creativity, gain valuable knowledge, and grow your
           business with our wide range of courses.
         </p>
-        <div className="mx-auto mt-8 max-w-lg">
+        <div className="mx-auto mt-7 max-w-lg sm:mt-8">
           <SearchBar />
         </div>
       </div>
 
-      <div className="relative mx-auto mt-10 aspect-[722/620] w-full max-w-[340px] sm:max-w-none sm:aspect-auto sm:h-[520px]">
-        <div className="absolute left-1/2 top-[6%] aspect-square w-[78%] -translate-x-1/2 rounded-full bg-lime sm:top-8 sm:h-[520px] sm:w-[520px]" />
+      {/* The stage matches the image's own 722x515 ratio and runs the full
+          viewport width, so the photo is edge-to-edge with no dead band above
+          it. `SU` scales the cards off that width, and every card sits in a
+          transparent region of the photo - never over the face. */}
+      <div
+        className="relative z-10 mx-auto mt-8 aspect-[722/515] w-full max-w-[440px]"
+        style={{ containerType: "inline-size" }}
+      >
+        <div className="absolute top-[3%] left-[18%] aspect-square w-[60%] rounded-full bg-lime" />
         <Image
           src="/hero/happy-boy.png"
           alt="Student learning with ByteSpace courses"
           width={722}
           height={515}
           priority
-          className="absolute inset-x-0 bottom-0 z-10 mx-auto h-auto w-full max-w-none object-contain"
+          className="absolute inset-0 z-10 h-full w-full max-w-none object-contain"
         />
-        <div className="absolute top-[16%] left-2 z-20 sm:top-36 sm:left-10">
-          <CourseCard fontSize="11px" />
+        <div className="absolute top-[3%] left-[1%] z-20">
+          <CourseCard fontSize={SU(8.5)} />
         </div>
-        <div className="absolute top-[42%] right-2 z-20 sm:top-[290px] sm:right-10">
-          <ProgressCard fontSize="10px" />
+        <div className="absolute top-[3%] right-[1%] z-20">
+          <ProgressCard fontSize={SU(7)} />
         </div>
-        <div className="absolute bottom-2 left-2 z-20 sm:bottom-10 sm:left-10">
-          <StudentsCard fontSize="11px" />
+        <div className="absolute right-[1%] bottom-[3%] z-20">
+          <StudentsCard fontSize={SU(10)} />
         </div>
       </div>
     </div>

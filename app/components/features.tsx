@@ -237,66 +237,124 @@ function CreatorVisual() {
   );
 }
 
-function LearnersFlow() {
+/**
+ * Mobile renders the desktop composition at a smaller scale rather than
+ * restacking it. Each group below is a pixel-for-pixel copy of its `lg`
+ * counterpart, wrapped in a fixed 1:1 box and scaled with a single transform.
+ * That keeps the internal arrangement (and the absolute offsets that produce
+ * it) byte-identical to desktop, and it also scales the children that are
+ * sized in raw px — `CompactCourseCard`'s internals, for instance, which a
+ * `cqw` canvas could not reach.
+ */
+function ScaledGroup({
+  width,
+  height,
+  scale,
+  children,
+}: {
+  width: number;
+  height: number;
+  scale: number;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="mt-8 flex w-full flex-col items-center gap-5 lg:hidden">
-      <div className="w-full max-w-[320px]">
-        <CourseCard course={featuredCourses[0]} />
-      </div>
-      {/* Source is 722×515 with transparent padding at x=81,y=36, so the
-          visible content is 619×479. The card sits below the photo rather than
-          overlapping it — at this width an overlay would cover his face. */}
-      <Image
-        src="/hero/happy-boy.png"
-        alt=""
-        width={722}
-        height={515}
-        className="h-auto w-[240px]"
-      />
-      <div className="-mt-16 w-fit">
-        <ProgressCard fontSize="11px" />
+    <div className="relative mx-auto w-full" style={{ maxWidth: width * scale, height: height * scale }}>
+      <div
+        className="absolute top-0 left-0"
+        style={{
+          width,
+          height,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
       </div>
     </div>
   );
 }
 
+/** Same layout as `LearnerVisual` (621×552), scaled to 52%. */
+function LearnersFlow() {
+  return (
+    <div className="mt-10 w-full lg:hidden">
+      <ScaledGroup width={621} height={552} scale={0.52}>
+        <div className="absolute" style={{ left: 0, top: 0, width: 373 }}>
+          <CourseCard course={featuredCourses[0]} compact />
+        </div>
+        <Image
+          src="/hero/happy-boy-2.png"
+          alt=""
+          width={703}
+          height={688}
+          className="absolute object-cover"
+          style={{
+            left: 57,
+            top: 29,
+            width: 635,
+            height: 594,
+            objectPosition: "center bottom",
+          }}
+        />
+        <div className="absolute z-10" style={{ left: 345, top: 213 }}>
+          <ProgressCard fontSize="14px" />
+        </div>
+        <Image
+          src="/squiggle-frame.png"
+          alt=""
+          width={217}
+          height={216}
+          className="absolute object-contain"
+          style={{ left: 403, top: 51, width: 214, height: 213 }}
+        />
+      </ScaledGroup>
+    </div>
+  );
+}
+
+/** Same layout as `CreatorVisual` (541×596), scaled to 55%. */
 function CreatorFlow() {
   return (
-    <div className="mt-6 flex w-full flex-col items-center gap-5 lg:hidden">
-      {/* Source is 579×719 with transparent padding at x=50,y=35, so visible
-          content is 497×684. Card overlaps the lower edge only, clear of her face. */}
-      <div className="relative w-[220px]">
+    <div className="mt-10 w-full lg:hidden">
+      <ScaledGroup width={541} height={596} scale={0.55}>
         <Image
           src="/happy girl.png"
           alt="ByteSpace creator with course revenue and students"
-          width={579}
-          height={719}
-          className="h-auto w-full"
+          width={435}
+          height={596}
+          className="absolute z-10 object-cover"
+          style={{ left: 38, top: -1, width: 517, height: 708 }}
         />
-        <div className="absolute inset-x-0 -bottom-10 mx-auto w-fit">
-          <StudentsCard fontSize="10px" />
-        </div>
-      </div>
-      <div className="mt-8 flex flex-wrap items-start justify-center gap-3">
         <RevenueCard
           title="Total Revenue"
           sub="July 1-28"
           value="$120.29"
-          fontSize="12px"
+          fontSize="16px"
           withBar
-          className="w-[164px]"
-          style={{ position: "relative" }}
+          className="relative flex"
+          style={{ left: 0, top: 44, width: 232, height: 119 }}
         />
         <RevenueCard
           title="Year to Date"
           sub="2023"
           value="$1,200.38"
-          fontSize="12px"
+          fontSize="16px"
           stacked
-          className="w-[96px]"
-          style={{ position: "relative" }}
+          className="relative flex"
+          style={{ left: 0, top: 55, width: 134, height: 135 }}
         />
-      </div>
+        <Image
+          src="/squiggle-creator.png"
+          alt=""
+          width={217}
+          height={216}
+          className="absolute z-20 object-contain"
+          style={{ left: 303, top: 114, width: 219, height: 218 }}
+        />
+        <div className="absolute z-10" style={{ left: 283, top: 413 }}>
+          <StudentsCard fontSize="16.87px" />
+        </div>
+      </ScaledGroup>
     </div>
   );
 }
@@ -437,11 +495,9 @@ export function Features() {
           <div
             className="flex flex-col lg:flex-row lg:items-center lg:w-[95.39cqw] lg:gap-[6.2798cqw]"
           >
-            <div className="mx-auto flex w-full flex-col items-center lg:mx-0 lg:w-[43cqw] lg:shrink-0 lg:items-stretch">
-              <CreatorVisual />
-              <CreatorFlow />
-            </div>
-            <div className="flex w-full flex-col gap-6 lg:w-[46.1cqw] lg:gap-[3.1796cqw]">
+            {/* Mobile shows the pitch first, then the visual. On `lg` the visual
+                returns to the left of the row via `order-first lg:order-none`. */}
+            <div className="order-1 flex w-full flex-col gap-6 lg:order-none lg:w-[46.1cqw] lg:gap-[3.1796cqw]">
               <h2
                 className="text-[26px] leading-[1.18] font-semibold tracking-[-0.01em] text-[#242528] sm:text-[34px] lg:max-w-[31.08cqw] lg:text-[3.4976cqw]"
                 style={{ fontFamily: "var(--font-poppins)", fontWeight: 600 }}
@@ -484,6 +540,10 @@ export function Features() {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div className="order-2 mx-auto flex w-full flex-col lg:order-none lg:mx-0 lg:w-[43cqw] lg:shrink-0 lg:items-stretch">
+              <CreatorVisual />
+              <CreatorFlow />
             </div>
           </div>
         </div>

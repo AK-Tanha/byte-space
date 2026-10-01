@@ -15,12 +15,13 @@ export type Course = {
 };
 
 function OverlayPill({
-
   children,
   size = "md",
+  style,
 }: {
   children: React.ReactNode;
   size?: "sm" | "md";
+  style?: React.CSSProperties;
 }) {
   const sizeClass =
     size === "sm"
@@ -30,23 +31,30 @@ function OverlayPill({
   return (
     <span
       className={`inline-flex items-center justify-center rounded-full bg-[rgba(246,246,246,0.6)] font-medium whitespace-nowrap text-[#4f4f4f] backdrop-blur-[4px] ${sizeClass}`}
+      style={style}
     >
-      {/* {withIcon ? icon : null} */}
       {children}
     </span>
   );
 }
 
-/** Figma: four 32px avatars overlapping 16px. */
-function AvatarStack() {
+/** Figma: four 32px avatars overlapping 16px. `size` scales it for the compact card. */
+function AvatarStack({
+  className = "",
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   return (
-    <span className="flex items-center" style={{ gap: 8 }}>
+    <span className={`flex shrink-0 items-center ${className}`} style={style}>
       <Image
         src="/courses/Auto Layout Horizontal.png"
         alt=""
         width={104}
         height={32}
-        className="h-8 w-auto"
+        className="w-auto"
+        style={{ height: "100%", width: "auto" }}
       />
     </span>
   );
@@ -95,7 +103,7 @@ function GridCourseCard({ course }: { course: Course }) {
           {course.level}
         </span>
         <span className="hidden sm:contents">
-          <AvatarStack />
+          <AvatarStack className="h-8" />
         </span>
       </div>
 
@@ -111,16 +119,41 @@ function GridCourseCard({ course }: { course: Course }) {
   );
 }
 
-/** Figma `Course_Card_1`: 373×384, radius 24, 16px padding, pills without icons. */
+/**
+ * Figma `Course_Card_1`: 373×384, radius 24, 16px padding, pills without icons.
+ *
+ * The card is a query container and every internal offset is expressed in
+ * `cqw` (1% of the card's own width) against the 373px Figma frame. Fixed px
+ * offsets only lined up while the card happened to render at 373px: at 272px
+ * the `aspectRatio` box shrank but the children did not, so ~100px of content
+ * spilled past the white background onto whatever sat below.
+ */
 function CompactCourseCard({ course }: { course: Course }) {
+  const px = (n: number) => `${(n / 373) * 100}cqw`;
+  const pill: React.CSSProperties = {
+    gap: px(6),
+    padding: `${px(3.25)} ${px(7.5)}`,
+    fontSize: px(11),
+    lineHeight: px(16),
+  };
+
   return (
     <article
       className="relative box-border rounded-3xl border border-[#ced0d3] bg-white"
-      style={{ width: "100%", aspectRatio: "373 / 384" }}
+      style={{
+        width: "100%",
+        aspectRatio: "373 / 384",
+        containerType: "inline-size",
+      }}
     >
       <div
         className="absolute overflow-hidden rounded-xl"
-        style={{ left: 16, top: 16, right: 16, height: 195 }}
+        style={{
+          left: px(16),
+          top: px(16),
+          right: px(16),
+          height: px(195),
+        }}
       >
         <Image
           src={course.image}
@@ -132,66 +165,73 @@ function CompactCourseCard({ course }: { course: Course }) {
       </div>
 
       <div
-        className="absolute flex items-center"
-        style={{ left: 12, top: 150, gap: 12, height: 32 }}
+        className="absolute flex flex-wrap items-center"
+        style={{
+          left: px(12),
+          right: px(12),
+          top: px(150),
+          gap: px(12),
+          minHeight: px(32),
+        }}
       >
-        <OverlayPill >
-          {course.lessons}
-        </OverlayPill>
-        <OverlayPill >
-          {course.duration}
-        </OverlayPill>
-        <OverlayPill >
-          {course.comments}
-        </OverlayPill>
+        <OverlayPill style={pill}>{course.lessons}</OverlayPill>
+        <OverlayPill style={pill}>{course.duration}</OverlayPill>
+        <OverlayPill style={pill}>{course.comments}</OverlayPill>
       </div>
 
       <div
-        className="absolute flex justify-between"
-        style={{ left: 16, right: 16, top: 232 }}
+        className="absolute flex justify-between gap-2"
+        style={{ left: px(16), right: px(16), top: px(232) }}
       >
-        <div className="flex flex-col" style={{ width: 237, gap: 16 }}>
-          <div className="flex flex-col">
+        <div className="flex min-w-0 flex-col" style={{ width: px(237), gap: px(16) }}>
+          <div className="flex min-w-0 flex-col">
             <h3
               className="line-clamp-1 font-semibold tracking-[-0.01em] text-black"
-              style={{ fontSize: 20, lineHeight: "28px" }}
+              style={{ fontSize: px(20), lineHeight: 1.4 }}
             >
               {course.title}
             </h3>
-            <p className="text-[12px] leading-5 text-[#4f4f4f]">
+            <p
+              className="truncate text-[#4f4f4f]"
+              style={{ fontSize: px(12), lineHeight: 1.67 }}
+            >
               by {course.author}
             </p>
           </div>
 
-          <div className="flex items-center" style={{ gap: 12, height: 32 }}>
+          <div className="flex items-center" style={{ gap: px(12), minHeight: px(32) }}>
             <span
-              className="inline-flex items-center rounded-full bg-[#f5f5f6] px-3 py-1.5 text-[12px] leading-5 font-medium text-[#4b4c53]"
-              style={{ gap: 4 }}
+              className="inline-flex items-center rounded-full bg-[#f5f5f6] font-medium text-[#4b4c53]"
+              style={{ gap: px(4), padding: `${px(6)} ${px(12)}`, fontSize: px(12) }}
             >
-              <BarIcon className="h-5 w-5" />
+              <BarIcon style={{ width: px(20), height: px(20) }} />
               {course.level}
             </span>
-            <AvatarStack />
+            <AvatarStack
+              className="h-auto"
+              style={{ gap: px(8), height: px(32), width: px(104) }}
+            />
           </div>
 
-          <div className="flex items-end" style={{ gap: 8 }}>
+          <div className="flex items-end" style={{ gap: px(8) }}>
             <span
               className="font-medium tracking-[-0.01em] text-brand"
-              style={{ fontSize: 20, lineHeight: "28px" }}
+              style={{ fontSize: px(20), lineHeight: 1.4 }}
             >
               {course.price}
             </span>
-            <span className="text-[12px] leading-5 text-[#4f4f4f]">
+            <span className="text-[#4f4f4f]" style={{ fontSize: px(12) }}>
               /lifetime
             </span>
           </div>
         </div>
 
-        <div className="flex items-center" style={{ gap: 0, height: 28 }}>
-          <span className="text-[18px] leading-7 font-medium text-[#4f4f4f]">
-            {course.rating}
-          </span>
-          <StarIcon className="h-6 w-6" style={{ color: "#d4fb20" }} />
+        <div
+          className="flex shrink-0 items-center"
+          style={{ height: px(28), fontSize: px(18), lineHeight: 1.94 }}
+        >
+          <span className="font-medium text-[#4f4f4f]">{course.rating}</span>
+          <StarIcon style={{ width: px(24), height: px(24), color: "#d4fb20" }} />
         </div>
       </div>
     </article>

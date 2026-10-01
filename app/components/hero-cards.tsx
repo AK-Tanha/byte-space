@@ -85,13 +85,16 @@ export function StudentsCard({
 
   return (
     <div
-      className={`flex flex-col rounded-2xl px-4 pb-4 ${
+      className={`flex flex-col rounded-2xl ${
         isLime ? "bg-lime" : "bg-white"
       } ${className ?? ""}`}
       style={{
         fontSize,
         width: "15.77em",
-        paddingTop: "0.952em",
+        // Padding is in `em` like every other dimension here. The fixed `px-4
+        // pb-4` this replaced did not scale with `fontSize`, so the avatar
+        // strip (13.93em) overran the content box at small sizes.
+        padding: "0.952em",
         gap: "0.237em",
       }}
     >
@@ -121,7 +124,7 @@ export function StudentsCard({
         alt=""
         width={232}
         height={43}
-        className="h-auto w-[13.93em]"
+        className="h-auto w-full max-w-[13.93em]"
       />
     </div>
   );

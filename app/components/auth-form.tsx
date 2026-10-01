@@ -84,7 +84,9 @@ export function AuthFooter({
   return (
     <p className="text-center text-[15px] text-neutral-500">
       {question}{" "}
-      <Link href={href} className="text-brand hover:underline">
+      {/* `py-2` and the negative margin lift the link's 21px line box to a
+          comfortable tap target without shifting the paragraph. */}
+      <Link href={href} className="-my-2 inline-block py-2 text-brand hover:underline">
         {action}
       </Link>
     </p>

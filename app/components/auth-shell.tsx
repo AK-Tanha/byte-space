@@ -78,8 +78,11 @@ function AuthCollage() {
       </div>
 
       {/* Mobile stack */}
-      <div className="mt-10 flex flex-col items-center gap-6 md:hidden">
-        <div className="relative w-full max-w-[340px]">
+      <div className="mt-10 flex w-full flex-col gap-6 md:hidden">
+        {/* Below ~360px the Figma 373px card no longer fits, and the decorative
+            offsets pushed it past the viewport edge. The card now fills the
+            column and the decorations sit inside its bounds. */}
+        <div className="relative mx-auto w-full max-w-[373px]">
           <div className="w-full">
             <CourseCard course={front} compact />
           </div>
@@ -88,17 +91,17 @@ function AuthCollage() {
             alt=""
             width={72}
             height={72}
-            className="absolute -top-6 -left-6 z-10 h-auto w-auto"
+            className="absolute -top-5 -left-3 z-10 h-auto w-auto max-w-[22%]"
           />
           <Image
             src="/auth/auth-deco-right-1.png.png"
             alt=""
             width={80}
             height={80}
-            className="absolute -right-4 bottom-8 z-10 h-auto w-auto"
+            className="absolute -right-2 bottom-8 z-10 h-auto w-auto max-w-[24%]"
           />
         </div>
-        <div className="w-full max-w-[280px] self-start">
+        <div className="mx-auto w-full max-w-[280px] self-start">
           <StudentsCard fontSize="15px" tone="lime" />
         </div>
       </div>
@@ -122,7 +125,9 @@ export function AuthShell({
       <header
         className={`relative z-10 mx-auto w-full max-w-[1440px] ${GUTTER}`}
       >
-        <Link href="/" aria-label="ByteSpace home" className="inline-block">
+        {/* `p-2` keeps the logo's 29px box at a 45px tap target without moving
+          the glyph, which is aligned to the text gutter below. */}
+      <Link href="/" aria-label="ByteSpace home" className="-m-2 inline-block p-2">
           <Image
             src="/auth/auth-logo.png"
             alt="ByteSpace"
@@ -138,7 +143,10 @@ export function AuthShell({
       <div
         className={`relative z-10 mx-auto grid w-full max-w-[1440px] flex-1 items-start gap-12 py-10 md:grid-cols-2 md:gap-8 md:pb-16 md:pt-[52px] ${GUTTER}`}
       >
-        <div className="min-w-0">
+        {/* Mobile puts the form first: the collage is decorative, and leading
+            with it pushed the sign-in button ~800px down the page. `order-none`
+            restores the Figma left/right split from md up. */}
+        <div className="order-2 min-w-0 md:order-none">
           {/* Figma: 475 wide, 16px gap. Heading 20/24 semibold -1%, body
               18/28.8 regular #b0b0b0. */}
           <div className="flex w-full max-w-[475px] flex-col gap-4">
@@ -152,7 +160,7 @@ export function AuthShell({
           <AuthCollage />
         </div>
 
-        <div className="min-w-0">
+        <div className="order-1 min-w-0 md:order-none">
           <div className="mx-auto w-full max-w-[580px] rounded-3xl bg-white px-6 py-8 text-neutral-900 sm:px-10 md:px-14 md:py-12 lg:px-16">
             {children}
           </div>
